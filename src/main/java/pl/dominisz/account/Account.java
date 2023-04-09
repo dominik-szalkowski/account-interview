@@ -3,11 +3,18 @@ package pl.dominisz.account;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Account {
   private final String accountNumber;
 
   public Account(String accountNumber) {
+    if (accountNumber == null) {
+      throw new IllegalArgumentException("accountNumber should not be null");
+    }
+    if (accountNumber.isBlank()) {
+      throw new IllegalArgumentException("accountNumber should not be blank");
+    }
     this.accountNumber = accountNumber;
   }
 
