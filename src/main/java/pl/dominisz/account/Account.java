@@ -1,9 +1,8 @@
 package pl.dominisz.account;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Account {
   private final String accountNumber;
@@ -26,17 +25,11 @@ public class Account {
 
   public List<Transaction> getTransactions() throws Exception {
     try {
-      List<DbRow> dbTransactionList = db.getTransactions(accountNumber.trim());
-      List<Transaction> transactionList = new ArrayList<>();
-      int i;
-      for (i = 0; i < dbTransactionList.size(); i++) {
-        DbRow dbRow = dbTransactionList.get(i);
-        Transaction trans = makeTransactionFromDbRow(dbRow);
-        transactionList.add(trans);
-      }
-      return transactionList;
-
-    } catch (SQLException ex) {
+      var transactions = db.getTransactions(accountNumber.trim());
+      return transactions.stream()
+          .map(this::makeTransactionFromDbRow)
+          .collect(Collectors.toList());
+    } catch (SQLException sqlException) {
       throw new Exception("Can't retrieve transactions from the database");
     }
   }
