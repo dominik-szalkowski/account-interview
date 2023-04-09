@@ -7,8 +7,9 @@ import java.util.Objects;
 
 public class Account {
   private final String accountNumber;
+  private final Db db;
 
-  public Account(String accountNumber) {
+  public Account(String accountNumber, Db db) {
     if (accountNumber == null) {
       throw new IllegalArgumentException("accountNumber should not be null");
     }
@@ -16,6 +17,7 @@ public class Account {
       throw new IllegalArgumentException("accountNumber should not be blank");
     }
     this.accountNumber = accountNumber;
+    this.db = db;
   }
 
   public String getAccountNumber() {
@@ -24,7 +26,7 @@ public class Account {
 
   public List<Transaction> getTransactions() throws Exception {
     try {
-      List<DbRow> dbTransactionList = Db.getTransactions(accountNumber.trim());
+      List<DbRow> dbTransactionList = db.getTransactions(accountNumber.trim());
       List<Transaction> transactionList = new ArrayList<>();
       int i;
       for (i = 0; i < dbTransactionList.size(); i++) {

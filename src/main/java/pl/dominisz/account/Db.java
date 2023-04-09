@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Db {
 
-  public static List<DbRow> getTransactions(String accountNumber) throws SQLException {
+  public List<DbRow> getTransactions(String accountNumber) throws SQLException {
     return List.of(new DbRow());
   }
 }
