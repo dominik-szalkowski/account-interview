@@ -22,10 +22,10 @@ public class Account {
     return accountNumber;
   }
 
-  public ArrayList<Transaction> getTransactions() throws Exception {
+  public List<Transaction> getTransactions() throws Exception {
     try {
       List<DbRow> dbTransactionList = Db.getTransactions(accountNumber.trim());
-      ArrayList<Transaction> transactionList = new ArrayList<>();
+      List<Transaction> transactionList = new ArrayList<>();
       int i;
       for (i = 0; i < dbTransactionList.size(); i++) {
         DbRow dbRow = dbTransactionList.get(i);
