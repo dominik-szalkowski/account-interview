@@ -10,8 +10,8 @@ public class Main {
         transaction ->
             System.out.println(
                 "Amount: "
-                    + transaction.getAmount()
+                    + transaction.amount()
                     + ", description: "
-                    + transaction.getDescription()));
+                    + transaction.description()));
   }
 }

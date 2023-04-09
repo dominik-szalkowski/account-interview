@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
-  private String accountNumber;
+  private final String accountNumber;
 
   public Account(String accountNumber) {
     this.accountNumber = accountNumber;
