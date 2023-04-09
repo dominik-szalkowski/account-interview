@@ -1,3 +1,5 @@
 package pl.dominisz.account;
 
-public record Transaction(String description, double amount) {}
+import java.math.BigDecimal;
+
+public record Transaction(String description, BigDecimal amount) {}

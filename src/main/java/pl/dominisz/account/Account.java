@@ -1,5 +1,6 @@
 package pl.dominisz.account;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,18 +27,16 @@ public class Account {
   public List<Transaction> getTransactions() throws Exception {
     try {
       var transactions = db.getTransactions(accountNumber.trim());
-      return transactions.stream()
-          .map(this::makeTransactionFromDbRow)
-          .collect(Collectors.toList());
+      return transactions.stream().map(this::makeTransactionFromDbRow).collect(Collectors.toList());
     } catch (SQLException sqlException) {
       throw new Exception("Can't retrieve transactions from the database");
     }
   }
 
-  private Transaction makeTransactionFromDbRow(DbRow row) {
-    double currencyAmountInPounds = Double.parseDouble(row.getValueForField("amt"));
-    String description = row.getValueForField("desc");
-    return new Transaction(description, currencyAmountInPounds);
+  private Transaction makeTransactionFromDbRow(DbRow dbRow) {
+    var amount = new BigDecimal(dbRow.getValueForField("amt"));
+    var description = dbRow.getValueForField("desc");
+    return new Transaction(description, amount);
   }
 
   public boolean equals(Account o) {
