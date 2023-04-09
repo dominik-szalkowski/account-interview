@@ -39,7 +39,13 @@ public class Account {
     return new Transaction(description, amount);
   }
 
-  public boolean equals(Account o) {
-    return o.getAccountNumber() == getAccountNumber();
+  @Override
+  public boolean equals(Object object) {
+    return object instanceof Account account && this.accountNumber.equals(account.accountNumber);
+  }
+
+  @Override
+  public int hashCode() {
+    return accountNumber.hashCode();
   }
 }
