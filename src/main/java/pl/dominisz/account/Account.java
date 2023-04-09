@@ -8,18 +8,16 @@ public class Account {
   private String accountNumber;
 
   public Account(String accountNumber) {
-    // Constructor
     this.accountNumber = accountNumber;
   }
 
   public String getAccountNumber() {
-    return accountNumber; // return the account number
+    return accountNumber;
   }
 
   public ArrayList<Transaction> getTransactions() throws Exception {
     try {
-      List<DbRow> dbTransactionList =
-          Db.getTransactions(accountNumber.trim()); // Get the list of transactions
+      List<DbRow> dbTransactionList = Db.getTransactions(accountNumber.trim());
       ArrayList<Transaction> transactionList = new ArrayList<>();
       int i;
       for (i = 0; i < dbTransactionList.size(); i++) {
@@ -30,7 +28,6 @@ public class Account {
       return transactionList;
 
     } catch (SQLException ex) {
-      // There was a database error
       throw new Exception("Can't retrieve transactions from the database");
     }
   }
@@ -38,12 +35,10 @@ public class Account {
   public Transaction makeTransactionFromDbRow(DbRow row) {
     double currencyAmountInPounds = Double.parseDouble(row.getValueForField("amt"));
     String description = row.getValueForField("desc");
-    return new Transaction(
-        description, currencyAmountInPounds); // return the new Transaction object
+    return new Transaction(description, currencyAmountInPounds);
   }
 
-  // Override the equals method
   public boolean equals(Account o) {
-    return o.getAccountNumber() == getAccountNumber(); // check account numbers are the same
+    return o.getAccountNumber() == getAccountNumber();
   }
 }
